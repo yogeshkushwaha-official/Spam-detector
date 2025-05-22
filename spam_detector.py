@@ -6,10 +6,14 @@ nltk.data.path.append('nltk_data')
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-# Download required resources safely
-nltk.download('punkt', quiet=True)
-nltk.download('stopwords', quiet=True)
-nltk.download('wordnet', quiet=True)
+@st.cache_resource
+def setup_nltk():
+    nltk.download('punkt')
+    nltk.download('stopwords')
+    nltk.download('wordnet')
+
+setup_nltk()
+
 
 
 import streamlit as st
