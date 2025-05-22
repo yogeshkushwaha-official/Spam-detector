@@ -6,9 +6,6 @@ nltk.data.path.append('nltk_data')
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-# Download NLTK resources
-import nltk
-
 # Download required resources safely
 nltk.download('punkt', quiet=True)
 nltk.download('stopwords', quiet=True)
