@@ -7,9 +7,13 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
 # Download NLTK resources
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
+import nltk
+
+# Download required resources safely
+nltk.download('punkt', quiet=True)
+nltk.download('stopwords', quiet=True)
+nltk.download('wordnet', quiet=True)
+
 
 import streamlit as st
 # Set black background and white text
