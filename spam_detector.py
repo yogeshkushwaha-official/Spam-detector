@@ -59,13 +59,18 @@ st.markdown(
 
 
 # Preprocessing function
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import RegexpTokenizer
+
 def transform_text(text):
     text = text.lower()
-    tokens = nltk.word_tokenize(text)
-    words = [word for word in tokens if word.isalnum()]
-    words = [word for word in words if word not in stopwords.words('english')]
+    tokenizer = RegexpTokenizer(r'\w+')
+    tokens = tokenizer.tokenize(text)  # Doesn't need punkt
+    words = [word for word in tokens if word not in stopwords.words('english')]
     lemmatizer = WordNetLemmatizer()
     return " ".join([lemmatizer.lemmatize(word) for word in words])
+
 
 # Load TF-IDF and model
 tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
