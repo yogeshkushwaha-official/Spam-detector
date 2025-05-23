@@ -5,28 +5,13 @@ import nltk
 nltk.data.path.append('nltk_data')
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import RegexpTokenizer
 def setup_nltk():
     nltk.download('punkt')
     nltk.download('stopwords')
     nltk.download('wordnet')
 
 setup_nltk()
-
-# Safely download NLTK resources
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt')
-
-try:
-    nltk.data.find('corpora/stopwords')
-except LookupError:
-    nltk.download('stopwords')
-
-try:
-    nltk.data.find('corpora/wordnet')
-except LookupError:
-    nltk.download('wordnet')
 
 # Set black background and white text
 st.markdown(
@@ -57,11 +42,6 @@ st.markdown(
 
 
 
-
-# Preprocessing function
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
-from nltk.tokenize import RegexpTokenizer
 
 def transform_text(text):
     text = text.lower()
