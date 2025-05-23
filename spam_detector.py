@@ -1,62 +1,35 @@
 import streamlit as st
 import pickle
-import string
 import nltk
-nltk.data.path.append('nltk_data')
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import RegexpTokenizer
-def setup_nltk():
-    nltk.download('punkt')
-    nltk.download('stopwords')
-    nltk.download('wordnet')
 
-setup_nltk()
+# Ensure required NLTK data is available
+nltk.download('stopwords')
+nltk.download('wordnet')
 
-# Set black background and white text
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background-color: #000000;
-        color: white;
-    }
-    h1, h2, h3, h4, h5, h6, p, div, label {
-        color: white !important;
-    }
-    .stTextInput > div > div > input,
-    .stTextArea > div > textarea {
-        background-color: #111 !important;
-        color: white !important;
-        border: 1px solid #444;
-    }
-    .stButton > button {
-        background-color: #222;
-        color: white;
-        border: none;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# UI Styling
+st.markdown("""
+<style>
+    
+</style>
+""", unsafe_allow_html=True)
 
-
-
-
+# Text preprocessing function
 def transform_text(text):
     text = text.lower()
     tokenizer = RegexpTokenizer(r'\w+')
-    tokens = tokenizer.tokenize(text)  # Doesn't need punkt
+    tokens = tokenizer.tokenize(text)
     words = [word for word in tokens if word not in stopwords.words('english')]
     lemmatizer = WordNetLemmatizer()
     return " ".join([lemmatizer.lemmatize(word) for word in words])
 
-
-# Load TF-IDF and model
+# Load vectorizer and model
 tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
 model = pickle.load(open('model.pkl', 'rb'))
 
-# Streamlit UI
+# UI Title
 st.title("📩 Email/SMS Spam Classifier")
 
 # Input box
@@ -74,6 +47,5 @@ if st.button("🔍 Predict") and message.strip():
         st.markdown('<h2 style="color:red;">🚨 Spam</h2>', unsafe_allow_html=True)
     else:
         st.markdown('<h2 style="color:green;">✅ Not Spam</h2>', unsafe_allow_html=True)
-    
-    st.write(f"**Confidence:** {confidence}%")
 
+    st.write(f"**Confidence:** {confidence}%")
