@@ -5,8 +5,6 @@ import nltk
 nltk.data.path.append('nltk_data')
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-
-@st.cache_resource
 def setup_nltk():
     nltk.download('punkt')
     nltk.download('stopwords')
@@ -14,9 +12,22 @@ def setup_nltk():
 
 setup_nltk()
 
+# Safely download NLTK resources
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
 
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords')
 
-import streamlit as st
+try:
+    nltk.data.find('corpora/wordnet')
+except LookupError:
+    nltk.download('wordnet')
+
 # Set black background and white text
 st.markdown(
     """
